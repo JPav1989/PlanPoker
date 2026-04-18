@@ -113,9 +113,11 @@ const Room = () => {
   }
 
   const activePlayers = Object.keys(presence).map(k => presence[k][0])
-  const voteValues = votes.map(v => parseFloat(v.vote_value)).filter(v => !isNaN(v))
+  const activeNames = new Set(activePlayers.map(p => p.name))
+  const activeVotes = votes.filter(v => activeNames.has(v.user_name))
+  const voteValues = activeVotes.map(v => parseFloat(v.vote_value)).filter(v => !isNaN(v))
   const average = voteValues.length ? (voteValues.reduce((a, b) => a + b, 0) / voteValues.length).toFixed(1) : '-'
-  const consensus = new Set(votes.map(v => v.vote_value)).size === 1 && votes.length > 1
+  const consensus = new Set(activeVotes.map(v => v.vote_value)).size === 1 && activeVotes.length > 1
 
   return (
     <div className="min-vh-100 flex flex-col p-6 overflow-hidden">
@@ -159,16 +161,30 @@ const Room = () => {
             </AnimatePresence>
           </motion.div>
 
-          {activePlayers.map((player, idx) => (
-            <UserSpot
-              key={player.id || idx}
-              name={player.name}
-              isMe={player.id === sessionId.current}
-              vote={votes.find(v => v.user_name === player.name)?.vote_value}
-              isRevealed={isRevealed}
-              positionStyle={getPosition(idx, activePlayers.length)}
-            />
-          ))}
+          <AnimatePresence>
+            {activePlayers.map((player, idx) => (
+              <motion.div
+                key={player.id || idx}
+                layout
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0, transition: { duration: 0.3 } }}
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                style={{ 
+                  position: 'absolute', 
+                  ...getPosition(idx, activePlayers.length),
+                  zIndex: player.id === sessionId.current ? 5 : 1
+                }}
+              >
+                <UserSpot
+                  name={player.name}
+                  isMe={player.id === sessionId.current}
+                  vote={votes.find(v => v.user_name === player.name)?.vote_value}
+                  isRevealed={isRevealed}
+                />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       </main>
 

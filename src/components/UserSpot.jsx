@@ -2,16 +2,13 @@ import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Chip from './Chip'
 
-const UserSpot = ({ name, vote, isRevealed, positionStyle, isMe }) => {
+const UserSpot = ({ name, vote, isRevealed, isMe }) => {
   const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2)
   
   return (
-    <div 
-      className="absolute flex flex-col items-center gap-3" 
-      style={positionStyle}
-    >
+    <div className="flex flex-col items-center gap-4">
       {/* Thrown Chip (Center of the spot) */}
-      <div className="h-16 w-16 flex items-center justify-center relative -mb-4">
+      <div className="h-16 w-16 flex items-center justify-center relative mb-2">
         <AnimatePresence>
           {vote && (
             <motion.div
