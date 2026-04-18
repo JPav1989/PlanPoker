@@ -121,20 +121,19 @@ const Room = () => {
 
   return (
     <div className="min-vh-100 flex flex-col p-6 overflow-hidden">
-      <header className="flex justify-between items-center glass p-4 rounded-2xl mb-8 z-20">
-        <div className="flex items-center gap-6">
-          <div className="flex flex-col">
+      <header className="flex justify-between items-center glass px-6 py-4 rounded-2xl mb-8 z-20">
+        <div className="flex items-center gap-8">
+          <div>
             <span className="text-[10px] uppercase font-bold text-muted tracking-widest">Table Session</span>
-            <h2 className="text-xl font-bold text-purple-400"># {roomId}</h2>
+            <h2 className="text-2xl font-bold text-purple-400 leading-none"># {roomId}</h2>
           </div>
-          <div className="h-8 w-px bg-white/10"></div>
           <div className="flex items-center gap-2">
             <Users size={16} className="text-muted" />
             <span className="font-bold">{activePlayers.length} Seated</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <button onClick={() => { navigator.clipboard.writeText(window.location.href); setCopied(true); setTimeout(() => setCopied(false), 2000) }} className="btn-poker-outline px-4 py-2 text-sm flex items-center gap-2">
             {copied ? <Check size={16} /> : <Copy size={16} />}
             {copied ? 'Link Copied' : 'Invite Fleet'}
@@ -170,8 +169,8 @@ const Room = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0, transition: { duration: 0.3 } }}
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                style={{ 
-                  position: 'absolute', 
+                style={{
+                  position: 'absolute',
                   ...getPosition(idx, activePlayers.length),
                   zIndex: player.id === sessionId.current ? 5 : 1
                 }}
