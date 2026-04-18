@@ -37,13 +37,25 @@ h4 {
   font-family: 'Space Grotesk', sans-serif;
 }
 
+input {
+  color: #ffffff !important;
+  padding: 20px;
+  /* Force text to white */
+}
+
+/* This targets the text you haven't typed yet */
+input::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
 /* Glassmorphism */
+
 .glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 /* Poker Table Layout */

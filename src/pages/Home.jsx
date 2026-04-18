@@ -18,9 +18,9 @@ const Home = () => {
   const createRoom = async () => {
     if (!name.trim()) return alert('Please enter your name first.')
     setLoading(true)
-    
+
     const newRoomId = Math.random().toString(36).substring(2, 9)
-    
+
     const { error } = await supabase
       .from('rooms')
       .insert([{ id: newRoomId, is_revealed: false }])
@@ -41,7 +41,7 @@ const Home = () => {
       <div className="absolute top-0 -left-20 w-80 h-80 bg-purple-600/20 blur-[100px] rounded-full"></div>
       <div className="absolute bottom-0 -right-20 w-80 h-80 bg-blue-600/20 blur-[100px] rounded-full"></div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         className="glass p-12 rounded-[32px] max-w-2xl w-full text-center relative z-10"
@@ -55,12 +55,12 @@ const Home = () => {
         <div className="flex flex-col gap-8 text-left">
           <div className="flex flex-col gap-3">
             <label className="text-sm font-bold uppercase tracking-widest text-muted ml-1">Your Identity</label>
-            <input 
-              type="text" 
-              placeholder="Enter your name..." 
+            <input
+              type="text"
+              placeholder="Enter your name..."
               value={name}
               onChange={(e) => handleSaveName(e.target.value)}
-              className="glass p-4 rounded-xl text-lg w-full outline-none focus:border-purple-500 transition-all"
+              className="glass py-7 px-8 rounded-2xl text-white w-full flex items-center justify-center gap-2 placeholder:text-white/20"
             />
           </div>
 
@@ -69,8 +69,8 @@ const Home = () => {
             <div className="flex flex-col gap-4 p-6 rounded-2xl bg-white/5 border border-white/5">
               <h3 className="text-xl font-bold">New Session</h3>
               <p className="text-sm text-muted mb-2">Create a private table and invite your fleet.</p>
-              <button 
-                onClick={createRoom} 
+              <button
+                onClick={createRoom}
                 disabled={loading}
                 className="btn-poker w-full flex items-center justify-center gap-2"
               >
@@ -82,14 +82,14 @@ const Home = () => {
             {/* Join Section */}
             <div className="flex flex-col gap-4 p-6 rounded-2xl bg-white/5 border border-white/5">
               <h3 className="text-xl font-bold">Join Session</h3>
-              <input 
-                type="text" 
-                placeholder="Table code..." 
+              <input
+                type="text"
+                placeholder="Table code..."
                 value={roomIdInput}
                 onChange={(e) => setRoomIdInput(e.target.value)}
                 className="glass p-3 rounded-lg text-sm bg-black/20"
               />
-              <button 
+              <button
                 onClick={joinRoom}
                 className="btn-poker-outline w-full flex items-center justify-center gap-2"
               >
